@@ -15,21 +15,25 @@ import * as serviceWorker from './serviceWorker';
 //   worldElement
 //   )
 
-const  Greeting = () =>{
-  const [name,setName] = useState(window.localStorage.getItem('name'||''))
-
+function useLocalStorageState(key:any,defalutValue=''){
+  const [state,setState] = React.useState(
+    () => window.localStorage.getItem(key)||defalutValue
+  )
   React.useEffect(()=>{
-    window.localStorage.setItem('name',name||'')
+    window.localStorage.setItem(key,state),[state]
   })
+  return [state,setState]
+}
 
-  function onChange(e:React.ChangeEvent<HTMLInputElement>){
-    setName(e.target.value)
-  }
+const  Greeting = () =>{
+  const [name,setName] = useLocalStorageState('name')
+
+  const onChange = null
   
   return <div>
       <form>
         <label>Name: </label>
-        <input name="name" onChange={onChange} id="name"/>
+        <input name="name"  id="name"/>
       </form>
       {name? <strong>Hello {name}</strong>:'Please type your name'}
     </div>

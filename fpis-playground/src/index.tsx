@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
+import {StoreProvider} from 'easy-peasy'
 // const children = "hello world"
 // const className = "container"
 // const helloElement = React.createElement('span',null,'Hello')
@@ -43,9 +44,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 // const element = <React.Fragment>
 //   <span>Hello</span> <span>World</span>
 // </React.Fragment>
+import store from './store'
+
 ReactDOM.render(
   <Router>
-    <App />
+    <StoreProvider store={store}>
+      <App />
+    </StoreProvider>
   </Router>,
   document.getElementById('root'),
 );

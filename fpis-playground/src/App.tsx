@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 const App: React.FC =() =>  {
 
   const classes = useStyles();
-  const entires = useStoreState(state => state.guestbook.entries)
+ 
 
   //console.log(entires)
 
@@ -24,7 +24,7 @@ const App: React.FC =() =>  {
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start"  color="inherit" aria-label="menu">
-          🍔
+          <span>🍔 </span>
           </IconButton>
             <div>
             <Button  component={Link} to="/" color="inherit">Home</Button>
@@ -33,7 +33,7 @@ const App: React.FC =() =>  {
         </Toolbar>
       </AppBar>
       <>
-      <Container maxWidth="md">
+      <Container maxWidth="sm">
         <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/about" component={Home}>

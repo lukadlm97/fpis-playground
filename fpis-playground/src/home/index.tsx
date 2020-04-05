@@ -18,7 +18,7 @@ const Home:React.FC = () =>{
             {
                 entries.map((entry)=>(
                 <Card >
-                <CardContent>
+                <CardContent key={entry.id}>
                     <Typography variant="h2">
                     {entry.name}
                     </Typography>
@@ -26,7 +26,7 @@ const Home:React.FC = () =>{
                     {entry.content}
                     </Typography>
                     <Typography variant="subtitle2">
-                    {entry.submitted.toLocaleDateString()}
+                    {entry.submitted}
                     </Typography>
                 </CardContent>
                 </Card>

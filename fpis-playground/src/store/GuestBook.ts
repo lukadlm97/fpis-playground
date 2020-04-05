@@ -2,9 +2,10 @@ import GuestBookModel from '../interfaces/GuestBookModel'
 
 const GuestBook:GuestBookModel ={
     entries:[{
+        id:1,
         name:'Luka',
         content:'Hello World',
-        submitted:new Date()
+        submitted:'05-04-2020'
     }]
 };
 

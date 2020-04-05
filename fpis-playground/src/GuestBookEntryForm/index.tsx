@@ -6,29 +6,32 @@ import Box from '@material-ui/core/Box'
 import {useForm} from 'react-hook-form'
 import GuestBookEntry from '../interfaces/GuestBookEntry'
 import * as yup from 'yup'
+import {useStoreActions} from '../hooks'
 
 const GuestBookEntrySchema = yup.object().shape({
     name:yup
     .string()
     .trim()
-    .required(),
+    .required('Required'),
     content:yup
     .string()
     .trim()
-    .min(10)
+    .min(10,'Must be at least 10 characters')
     .max(2000)
     .required(),
 });
 
 const GuestBookEntryForm = ()=>{
     const classes = useStyles()
-    const {register,handleSubmit,errors} = useForm<GuestBookEntry>({
+    const {register,handleSubmit,errors,reset} = useForm<GuestBookEntry>({
         validationSchema:GuestBookEntrySchema
     })
     const onSubmit = (data:GuestBookEntry):void=>{
         console.log(data)
+        addEntry(data)
+        reset()
     }
-    console.log(errors)
+    const addEntry = useStoreActions(state=>state.guestbook.addEntry)
     return(
         <form onSubmit={handleSubmit(onSubmit)}  className={classes.formContainer} noValidate>
             <TextField 
@@ -38,6 +41,7 @@ const GuestBookEntryForm = ()=>{
             variant="outlined" 
             fullWidth
             error ={!!errors.name}
+            helperText = {errors.name?errors.name.message:''}
             />
             <TextField 
             inputRef={register} 
@@ -46,7 +50,9 @@ const GuestBookEntryForm = ()=>{
             variant="outlined" 
             name="content" 
             fullWidth
-            error={!!errors.content}/>
+            error={!!errors.content}
+            helperText = {errors.content?errors.content.message:''}
+            />
             <Box display="flex" justifyContent="flex-end">
                 <Button type="submit" color="primary" variant="contained" >Add Entry</Button>
             </Box>
